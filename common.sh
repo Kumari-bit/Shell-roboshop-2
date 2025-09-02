@@ -32,9 +32,8 @@ VALIDATE(){
         exit 1
     fi
 }
-
 app_setup(){
-    id roboshop
+    id roboshop &>>$LOG_FILE
     if [ $? -ne 0 ]
     then
         useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
@@ -53,9 +52,6 @@ app_setup(){
     cd /app 
     unzip /tmp/$app_name.zip &>>$LOG_FILE
     VALIDATE $? "unzipping $app_name"
-
-    npm install &>>$LOG_FILE
-    VALIDATE $? "Installing Dependencies"
 }
 
 nodejs_setup(){
